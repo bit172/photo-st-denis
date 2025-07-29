@@ -3,8 +3,6 @@ import express from 'express'
 import helmet from 'helmet'
 import morgan from 'morgan'
 
-import type MessageResponse from './interfaces/message-response'
-
 import api from './api'
 import * as middlewares from './middlewares'
 
@@ -14,12 +12,6 @@ app.use(morgan('dev'))
 app.use(helmet())
 app.use(cors())
 app.use(express.json())
-
-app.get<object, MessageResponse>('/', (req, res) => {
-  res.json({
-    message: '🦄🌈✨👋🌎🌍🌏✨🌈🦄',
-  })
-})
 
 app.use('/api/v1', api)
 
