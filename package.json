@@ -4,8 +4,7 @@
   "description": "Photo management and transfer system monorepo",
   "private": true,
   "workspaces": [
-    "packages/*",
-    "apps/*"
+    "packages/*"
   ],
   "scripts": {
     "build": "npm run build --workspaces",
@@ -22,11 +21,12 @@
     "docker:logs": "docker-compose logs -f"
   },
   "devDependencies": {
+    "@nx/js": "^21.3.10",
     "@types/node": "^20.0.0",
-    "typescript": "^5.0.0",
-    "prettier": "^3.0.0",
     "eslint": "^8.0.0",
-    "nx": "21.3.10"
+    "nx": "21.3.10",
+    "prettier": "^3.0.0",
+    "typescript": "^5.0.0"
   },
   "engines": {
     "node": ">=18.0.0",

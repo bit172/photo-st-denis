@@ -3,7 +3,7 @@
 export interface OrderInfo {
   id: string
   customerEmail: string
-  directoryPathes: string[]
+  directoryPaths: string[]
   createdAt: Date
   updatedAt: Date
 }
@@ -42,13 +42,13 @@ export interface ErrorResponse {
 }
 
 // Utility types
-export type Result<T, E = Error> = 
+export type Result<T, E = Error> =
   | { success: true; data: T }
   | { success: false; error: E }
 
 // Constants
 export const API_VERSIONS = {
-  V1: 'v1',
+  V1: "v1",
 } as const
 
 export const CACHE_CONSTANTS = {
