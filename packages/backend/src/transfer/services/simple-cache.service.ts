@@ -68,7 +68,10 @@ export class SimpleCacheService {
     private readonly fileProcessingService: FileProcessingService,
     @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
   ) {
-    this.ensureCacheDirectory()
+    // Initialize cache directory asynchronously
+    this.ensureCacheDirectory().catch((error) => {
+      this.logger.error('Failed to initialize cache directory:', error)
+    })
   }
 
   // ==========================================
@@ -103,7 +106,7 @@ export class SimpleCacheService {
 
       for (const order of recentOrders) {
         try {
-          const zipPath = this.getZipPath(order.directoryPathes)
+          const zipPath = this.getZipPath(order.directoryPaths)
 
           if (await this.fileExists(zipPath)) {
             skippedCount++
@@ -111,7 +114,7 @@ export class SimpleCacheService {
           }
 
           this.logger.log(`Pre-generating ZIP for order: ${order.customerEmail}`)
-          await this.generateZipFile(order.directoryPathes, zipPath)
+          await this.generateZipFile(order.directoryPaths, zipPath)
           await this.enforceMaxCacheSize()
           processedCount++
         } catch (error) {

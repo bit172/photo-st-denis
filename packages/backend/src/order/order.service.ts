@@ -7,7 +7,7 @@ interface OrderInput {
   customerEmail: string
   downloadToken: string
   tokenExpiry: Date
-  directoryPathes: string[]
+  directoryPaths: string[]
 }
 
 @Injectable()

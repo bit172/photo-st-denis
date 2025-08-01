@@ -6,7 +6,7 @@ import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
   {
-    ignores: ['eslint.config.mjs'],
+    ignores: ['eslint.config.mjs', 'dist/**/*'],
   },
   eslint.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
@@ -15,7 +15,6 @@ export default tseslint.config(
     languageOptions: {
       globals: {
         ...globals.node,
-        ...globals.jest,
       },
       sourceType: 'commonjs',
       parserOptions: {
@@ -27,7 +26,6 @@ export default tseslint.config(
   {
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-floating-promises': 'warn',
       '@typescript-eslint/no-unsafe-argument': 'off',
       '@typescript-eslint/no-unsafe-assignment': 'off',
       '@typescript-eslint/no-unsafe-call': 'off',
@@ -37,8 +35,8 @@ export default tseslint.config(
       '@typescript-eslint/prefer-promise-reject-errors': 'off',
       '@typescript-eslint/restrict-template-expressions': 'off',
       '@typescript-eslint/no-require-imports': 'off',
-      'no-useless-escape': 'warn',
       'semi': ['error', 'never'],
+      'prettier/prettier': ['error', { semi: false }],
     },
   },
 );

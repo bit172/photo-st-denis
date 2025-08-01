@@ -43,10 +43,10 @@ export class PhotosConfigService implements OnModuleInit {
 
   private sanitizePath(relativePath: string): string {
     // Remove any path traversal attempts (../, ..\, etc.)
-    const sanitized = path.normalize(relativePath).replace(/^(\.\.[\/\\])+/, '')
+    const sanitized = path.normalize(relativePath).replace(/^(\.\.[/\\])+/, '')
 
     // Ensure it doesn't start with / or \ to keep it relative
-    return sanitized.replace(/^[\/\\]+/, '')
+    return sanitized.replace(/^[/\\]+/, '')
   }
 
   private async validateConfiguration(): Promise<void> {

@@ -49,7 +49,7 @@ export class TransferController {
   })
   async associate(@Body() associateDto: AssociateDto): Promise<AssociateResponseDto> {
     // Validate input
-    if (!associateDto.directoryPathes?.length) {
+    if (!associateDto.directoryPaths?.length) {
       throw new BadRequestException('At least one directory path is required')
     }
 
@@ -59,13 +59,13 @@ export class TransferController {
     try {
       await this.orderService.createOrder({
         customerEmail: associateDto.email,
-        directoryPathes: associateDto.directoryPathes,
+        directoryPaths: associateDto.directoryPaths,
         downloadToken: token,
         tokenExpiry,
       })
 
       this.logger.log(
-        `Created order for ${associateDto.email} with ${associateDto.directoryPathes.length} directories`,
+        `Created order for ${associateDto.email} with ${associateDto.directoryPaths.length} directories`,
       )
 
       return { token }
@@ -117,18 +117,18 @@ export class TransferController {
       const order = await this.validateToken(token)
 
       this.logger.log(
-        `Starting download for ${order.customerEmail}: ${order.directoryPathes.length} directories, token: ${token}`,
+        `Starting download for ${order.customerEmail}: ${order.directoryPaths.length} directories, token: ${token}`,
       )
 
       // Check if we have a pre-generated ZIP file
-      const cachedZipPath = await this.simpleCacheService.getCachedZip(order.directoryPathes)
+      const cachedZipPath = await this.simpleCacheService.getCachedZip(order.directoryPaths)
 
       if (cachedZipPath) {
         this.logger.log(`Serving cached ZIP for token: ${token}`)
 
         // Generate descriptive filename
         const dateStr = new Date().toISOString().split('T')[0]
-        const dirCount = order.directoryPathes.length
+        const dirCount = order.directoryPaths.length
         const filename = `photos-${order.customerEmail.split('@')[0]}-${dateStr}-${dirCount}dirs.zip`
 
         const setupTime = Date.now() - startTime
@@ -154,7 +154,7 @@ export class TransferController {
 
       // Process directories in the background with proper error handling
       this.fileProcessingService
-        .processDirectoriesAsync(order.directoryPathes, zipArchiver, stream)
+        .processDirectoriesAsync(order.directoryPaths, zipArchiver, stream)
         .catch((err) => {
           this.logger.error(`Failed to process directories for token ${token}:`, err.stack)
           if (!stream.destroyed) {
@@ -167,7 +167,7 @@ export class TransferController {
 
       // Generate a more descriptive filename
       const dateStr = new Date().toISOString().split('T')[0]
-      const dirCount = order.directoryPathes.length
+      const dirCount = order.directoryPaths.length
       const filename = `photos-${order.customerEmail.split('@')[0]}-${dateStr}-${dirCount}dirs.zip`
 
       return new StreamableFile(stream, {
