@@ -1,0 +1,39 @@
+{
+  "name": "photo-st-denis",
+  "version": "1.0.0",
+  "description": "Photo management and transfer system monorepo",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "dev": "npm run dev --workspaces",
+    "start": "npm run start --workspaces",
+    "test": "npm run test --workspaces",
+    "lint": "npm run lint --workspaces",
+    "clean": "npm run clean --workspaces && rm -rf node_modules",
+    "backend:dev": "npm run dev -w @photo-st-denis/backend",
+    "backend:build": "npm run build -w @photo-st-denis/backend",
+    "backend:start": "npm run start -w @photo-st-denis/backend",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "prettier": "^3.0.0",
+    "eslint": "^8.0.0",
+    "nx": "21.3.10"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "dependencies": {
+    "@nestjs/schedule": "^6.0.0",
+    "reflect-metadata": "^0.2.2"
+  }
+}

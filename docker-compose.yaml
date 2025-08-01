@@ -1,0 +1,51 @@
+services:
+  # Backend API service
+  backend:
+    build:
+      context: ./packages/backend
+      dockerfile: Dockerfile
+    container_name: photo-backend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - MONGODB_URI=mongodb://photostdenis:password@mongodb:27017/photo-st-denis?authSource=admin
+      - REDIS_URL=redis://redis:6379
+    volumes:
+      - /mnt/psd:/mnt/psd:ro # Mount photo storage (read-only)
+      - cache_data:/tmp/photo-cache # Cache volume
+    depends_on:
+      - mongodb
+      - redis
+    restart: unless-stopped
+
+  # MongoDB database
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb_container
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+      - ./mongodb-init:/docker-entrypoint-initdb.d:ro
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "photostdenis"
+      MONGO_INITDB_ROOT_PASSWORD: "password"
+      MONGO_INITDB_DATABASE: "photo-st-denis"
+    restart: unless-stopped
+
+  # Redis cache
+  redis:
+    image: redis:alpine
+    container_name: redis_container
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes --maxmemory 512mb --maxmemory-policy allkeys-lru
+    restart: unless-stopped
+
+volumes:
+  mongodb_data:
+  redis_data:
+  cache_data:

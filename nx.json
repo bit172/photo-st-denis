@@ -1,0 +1,94 @@
+{
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "targetDefaults": {
+    "build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "{projectRoot}/dist"
+      ],
+      "cache": true
+    },
+    "start": {
+      "dependsOn": [
+        "^start"
+      ],
+      "cache": true
+    },
+    "dev": {
+      "dependsOn": [
+        "^dev"
+      ],
+      "cache": true
+    },
+    "test": {
+      "dependsOn": [
+        "^test"
+      ],
+      "cache": true
+    },
+    "lint": {
+      "dependsOn": [
+        "^lint"
+      ],
+      "cache": true
+    },
+    "format": {
+      "dependsOn": [
+        "^format"
+      ],
+      "cache": true
+    },
+    "start:dev": {
+      "dependsOn": [
+        "^start:dev"
+      ],
+      "cache": true
+    },
+    "start:debug": {
+      "dependsOn": [
+        "^start:debug"
+      ],
+      "cache": true
+    },
+    "start:prod": {
+      "dependsOn": [
+        "^start:prod"
+      ],
+      "cache": true
+    },
+    "clean": {
+      "dependsOn": [
+        "^clean"
+      ],
+      "cache": true
+    },
+    "test:watch": {
+      "dependsOn": [
+        "^test:watch"
+      ],
+      "cache": true
+    },
+    "test:cov": {
+      "dependsOn": [
+        "^test:cov"
+      ],
+      "cache": true
+    },
+    "test:debug": {
+      "dependsOn": [
+        "^test:debug"
+      ],
+      "cache": true
+    },
+    "test:e2e": {
+      "dependsOn": [
+        "^test:e2e"
+      ],
+      "cache": true
+    }
+  },
+  "defaultBase": "master",
+  "nxCloudId": "688c033ce83e13746288b001"
+}
