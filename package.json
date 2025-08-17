@@ -4,7 +4,8 @@
   "description": "Photo management and transfer system monorepo",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "apps/*",
+    "libs/*"
   ],
   "scripts": {
     "build": "npm run build --workspaces",

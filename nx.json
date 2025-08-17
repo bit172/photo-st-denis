@@ -26,95 +26,33 @@
   },
   "targetDefaults": {
     "build": {
-      "dependsOn": [
-        "^build"
-      ],
-      "inputs": [
-        "production",
-        "^production"
-      ],
-      "outputs": [
-        "{projectRoot}/dist"
-      ],
-      "cache": true
-    },
-    "start": {
-      "dependsOn": [
-        "^start"
-      ],
-      "cache": true
-    },
-    "dev": {
-      "dependsOn": [
-        "^dev"
-      ],
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"],
+      "outputs": ["{projectRoot}/dist"],
       "cache": true
     },
     "test": {
-      "dependsOn": [
-        "^test"
-      ],
+      "inputs": ["default", "^production"],
       "cache": true
     },
     "lint": {
-      "dependsOn": [
-        "^lint"
-      ],
+      "inputs": ["default", "^production"],
       "cache": true
     },
-    "format": {
-      "dependsOn": [
-        "^format"
-      ],
-      "cache": true
+    "dev": {
+      "cache": false
+    },
+    "start": {
+      "cache": false
     },
     "start:dev": {
-      "dependsOn": [
-        "^start:dev"
-      ],
-      "cache": true
+      "cache": false
     },
     "start:debug": {
-      "dependsOn": [
-        "^start:debug"
-      ],
-      "cache": true
+      "cache": false
     },
     "start:prod": {
-      "dependsOn": [
-        "^start:prod"
-      ],
-      "cache": true
-    },
-    "clean": {
-      "dependsOn": [
-        "^clean"
-      ],
-      "cache": true
-    },
-    "test:watch": {
-      "dependsOn": [
-        "^test:watch"
-      ],
-      "cache": true
-    },
-    "test:cov": {
-      "dependsOn": [
-        "^test:cov"
-      ],
-      "cache": true
-    },
-    "test:debug": {
-      "dependsOn": [
-        "^test:debug"
-      ],
-      "cache": true
-    },
-    "test:e2e": {
-      "dependsOn": [
-        "^test:e2e"
-      ],
-      "cache": true
+      "cache": false
     }
   },
   "nxCloudId": "688c033ce83e13746288b001"
